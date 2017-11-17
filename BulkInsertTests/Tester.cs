@@ -37,7 +37,7 @@ namespace BulkInsertTests
             }
         }
 
-        public void BulkInsert()
+        public void BulkCopy()
         {
             var table = new DataTable();
             table.Columns.Add("Value", typeof(string));

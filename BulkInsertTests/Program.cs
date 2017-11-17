@@ -11,7 +11,7 @@ namespace BulkInsertTests
         {
             using (var connection = new SqlConnection("Data Source=localhost;Initial Catalog=Test;Trusted_Connection=Yes;"))
             {
-                var tester = new Tester(connection, 10_000);
+                var tester = new Tester(connection, 2_000);
 
                 var run = new Action<string,Action>((name, test) => { 
 
@@ -25,18 +25,14 @@ namespace BulkInsertTests
                     Console.WriteLine($"{name} - elapsed time: {stopwatch.ElapsedMilliseconds}ms");
                 });
 
-                run("BulkInsert", tester.BulkInsert);
-                run("OneByOne", tester.OneByOne);
-                run("BatchOf1000", tester.BatchOf1000);
+                run(nameof(tester.OneByOne), tester.OneByOne);
+                run(nameof(tester.BatchOf1000), tester.BatchOf1000);
+                run(nameof(tester.BulkCopy), tester.BulkCopy);
             }
 
             Console.WriteLine("Press [Enter]...");
             Console.ReadLine();
         }
-
-
-        
-
     }
 }
 
